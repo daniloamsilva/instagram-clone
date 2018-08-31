@@ -6,10 +6,13 @@ import android.util.Log;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
 import java.util.List;
 
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         filtro.setLimit(1);
 
         // Listar os dados
+        /*
         filtro.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -73,6 +77,52 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else{
                     Log.i("ListarDados","Erro ao consultar os objetos: "+ e.getMessage());
+                }
+            }
+        });
+        */
+
+        /*
+        // Cadastro de usuário
+        ParseUser usuario = new ParseUser();
+        usuario.setUsername("daniloaugusto");
+        usuario.setPassword("123456");
+        usuario.setEmail("danilo@gmail.com");
+
+        // Cadastrar
+        usuario.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null){
+                    Log.i("cadastroUsuario","Sucesso ao cadastrar o usuário");
+                }else {
+                    Log.i("cadastroUsuario","Erro ao cadastrar o usuário: "+ e.getMessage());
+                }
+            }
+        });
+        */
+
+
+        // Deslogar usuário
+        //ParseUser.logOut();
+
+        /*
+        // Verificar usuário logado
+        if (ParseUser.getCurrentUser() != null){
+            Log.i("loginUsuario","Usuário esta logado");
+        }else{
+            Log.i("loginUsuario","Usuário não esta logado");
+        }
+        */
+
+        // Fazer login do usuário
+        ParseUser.logInInBackground("daniloaugusto", "1234", new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (e == null){
+                    Log.i("verificaLoginUsuario","Login realizado com sucesso!");
+                }else{
+                    Log.i("verificaLoginUsuario","Erro ao fazer login do usuário: "+ e.getMessage());
                 }
             }
         });
