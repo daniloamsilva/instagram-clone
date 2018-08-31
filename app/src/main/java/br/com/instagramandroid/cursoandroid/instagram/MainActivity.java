@@ -4,11 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
         ParseObject pontuacao = new ParseObject("Pontuacao");
         pontuacao.put("nome", "Danilo");
         pontuacao.put("pontos", 50);
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        */
 
         /*
         ParseQuery<ParseObject> consulta = ParseQuery.getQuery("Pontuacao");
@@ -45,6 +50,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         */
+
+        ParseQuery<ParseObject> filtro = ParseQuery.getQuery("Pontuacao");
+
+        // Aplicando filtros na listagem de dados
+        //filtro.whereGreaterThan("pontos", 800);
+        filtro.whereGreaterThanOrEqualTo("pontos", 800);
+        //filtro.whereLessThan("pontos", 500);
+        //filtro.whereEndsWith("nome", "ia");
+        //filtro.whereStartsWith("nome", "Ja");
+        //filtro.addAscendingOrder("pontos");
+        filtro.addDescendingOrder("pontos");
+        filtro.setLimit(1);
+
+        // Listar os dados
+        filtro.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null){
+                    for (ParseObject object: objects){
+                        Log.i("ListarDados","Objetos - Nome: "+ object.get("nome") + " pontos: " + object.get("pontos"));
+                    }
+                }else{
+                    Log.i("ListarDados","Erro ao consultar os objetos: "+ e.getMessage());
+                }
+            }
+        });
 
     }
 }
