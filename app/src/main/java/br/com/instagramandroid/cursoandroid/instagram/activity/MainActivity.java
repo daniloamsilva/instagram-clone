@@ -1,4 +1,4 @@
-package br.com.instagramandroid.cursoandroid.instagram;
+package br.com.instagramandroid.cursoandroid.instagram.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.util.List;
+
+import br.com.instagramandroid.cursoandroid.instagram.R;
 
 public class MainActivity extends AppCompatActivity {
 
