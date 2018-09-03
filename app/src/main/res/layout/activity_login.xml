@@ -16,7 +16,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="18dp">
+        tools:layout_editor_absoluteX="18dp"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/imageView"
@@ -82,6 +83,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="80dp"
+            android:onClick="abrirCadastroUsuario"
             android:text="@string/crie_conta"
             tools:layout_editor_absoluteX="162dp"
             tools:layout_editor_absoluteY="323dp" />

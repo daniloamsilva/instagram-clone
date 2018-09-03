@@ -1,23 +1,21 @@
 package br.com.instagramandroid.cursoandroid.instagram.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import br.com.instagramandroid.cursoandroid.instagram.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class CadastroActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_cadastro);
     }
 
-    public void abrirCadastroUsuario(View view){
-        Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
-        startActivity(intent);
+    public void abrirLoginUsuario(View view){
+        finish();
     }
 
 }
