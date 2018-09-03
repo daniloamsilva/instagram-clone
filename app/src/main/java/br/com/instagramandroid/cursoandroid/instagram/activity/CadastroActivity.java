@@ -37,7 +37,6 @@ public class CadastroActivity extends AppCompatActivity {
                 cadastrarUsuario();
             }
         });
-
     }
 
     private void cadastrarUsuario(){
@@ -53,6 +52,7 @@ public class CadastroActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null){ // sucesso ao salvar
                     Toast.makeText(CadastroActivity.this, "Cadastro feito com sucesso!", Toast.LENGTH_SHORT).show();
+                    abrirLoginUsuario();
                 }else{ // erro ao salvar
                     ParseErros parseErros = new ParseErros();
                     String erro = parseErros.getErro(e.getCode());
@@ -62,7 +62,7 @@ public class CadastroActivity extends AppCompatActivity {
         });
     }
 
-    public void abrirLoginUsuario(View view){
+    public void abrirLoginUsuario(){
         finish();
     }
 
