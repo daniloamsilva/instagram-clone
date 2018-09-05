@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_senha" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/text_faca_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -101,7 +101,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:onClick="abrirLoginUsuario"
         android:text="@string/fazer_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

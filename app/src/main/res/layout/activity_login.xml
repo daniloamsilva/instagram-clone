@@ -31,7 +31,7 @@
             tools:layout_editor_absoluteY="36dp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/edit_login_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -48,7 +48,7 @@
             tools:layout_editor_absoluteY="121dp" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/edit_login_senha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -65,7 +65,7 @@
             tools:layout_editor_absoluteY="182dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_logar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
