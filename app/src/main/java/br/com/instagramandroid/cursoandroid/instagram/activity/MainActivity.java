@@ -1,6 +1,7 @@
 package br.com.instagramandroid.cursoandroid.instagram.activity;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Configuração do adpter
         TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), this);
-
+        viewPager.setAdapter(tabsAdapter);
+        slidingTabLayout.setCustomTabView(R.layout.tab_view, R.id.text_item_tab);
+        slidingTabLayout.setDistributeEvenly(true);
+        slidingTabLayout.setSelectedIndicatorColors(ContextCompat.getColor(this, R.color.cinzaEscuro));
+        slidingTabLayout.setViewPager(viewPager);
     }
 
     @Override
