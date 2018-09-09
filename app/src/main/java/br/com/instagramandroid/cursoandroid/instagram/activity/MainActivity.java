@@ -1,6 +1,8 @@
 package br.com.instagramandroid.cursoandroid.instagram.activity;
 
 import android.content.Intent;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -70,10 +72,26 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_configuracoes:
                 return true;
             case R.id.action_compartilhar:
+                compartilharFoto();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Teste do processo de retorno dos dados
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null){
+
+        }
+    }
+
+    private void compartilharFoto(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 1);
     }
 
     private void deslogarUsuario(){
