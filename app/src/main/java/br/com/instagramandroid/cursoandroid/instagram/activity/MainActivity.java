@@ -1,12 +1,16 @@
 package br.com.instagramandroid.cursoandroid.instagram.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +41,7 @@ import java.util.Locale;
 
 import br.com.instagramandroid.cursoandroid.instagram.R;
 import br.com.instagramandroid.cursoandroid.instagram.adapter.TabsAdapter;
+import br.com.instagramandroid.cursoandroid.instagram.util.Permissao;
 import br.com.instagramandroid.cursoandroid.instagram.util.SlidingTabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,11 +49,16 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbarPrincipal;
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
+    private String[] permissoesNecessarias = new String[]{
+      Manifest.permission.READ_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Permissao.validaPermissao(1,this, permissoesNecessarias);
 
         toolbarPrincipal = findViewById(R.id.toolbar_principal);
         toolbarPrincipal.setLogo(R.drawable.instagramlogo);
@@ -150,4 +160,31 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grandResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grandResults);
+
+        for (int resultado : grandResults){
+            if (resultado == PackageManager.PERMISSION_DENIED){
+                alertaValidacaoPermissao();
+            }
+        }
+    }
+
+    private void alertaValidacaoPermissao(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Permissões Negadas");
+        builder.setMessage("Para utilizar este app, é necessário aceitar as permissões.");
+
+        builder.setPositiveButton("CONFIRMAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }
