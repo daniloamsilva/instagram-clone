@@ -1,6 +1,8 @@
 package br.com.instagramandroid.cursoandroid.instagram.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -12,18 +14,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.instagramandroid.cursoandroid.instagram.R;
 import br.com.instagramandroid.cursoandroid.instagram.adapter.TabsAdapter;
@@ -86,6 +96,47 @@ public class MainActivity extends AppCompatActivity {
         // Teste do processo de retorno dos dados
         if (requestCode == 1 && resultCode == RESULT_OK && data != null){
 
+            // Recuperar local do recurso
+            Uri localImagemSelecionada = data.getData();
+
+            // Recupera a imagem do local que foi selecionada
+            try {
+                Bitmap imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+
+                // Comprimir no formato PNG
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imagem.compress(Bitmap.CompressFormat.PNG, 75, stream);
+
+                // Cria um array de bytes da imagem
+                byte[] byteArray = stream.toByteArray();
+
+                // Criar um arquivo com formato próprio do parse
+                SimpleDateFormat dateFormat = new SimpleDateFormat("ddmmaaaahhmmss");
+                String nomeImagem = dateFormat.format(new Date());
+                ParseFile arquivoParse = new ParseFile(nomeImagem +"imagem.png", byteArray);
+
+                // Monta objeto para salvar no parse
+                ParseObject parseObject = new ParseObject("Imagem");
+                parseObject.put("username", ParseUser.getCurrentUser().getUsername());
+                parseObject.put("imagem", arquivoParse);
+
+                // Salvar os dados
+                parseObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+
+                        if (e==null){
+                            Toast.makeText(MainActivity.this, "Sua imagem foi postada!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(MainActivity.this, "Erro ao postar sua imagem!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
