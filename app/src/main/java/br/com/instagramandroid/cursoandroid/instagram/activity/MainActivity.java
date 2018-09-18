@@ -41,6 +41,7 @@ import java.util.Locale;
 
 import br.com.instagramandroid.cursoandroid.instagram.R;
 import br.com.instagramandroid.cursoandroid.instagram.adapter.TabsAdapter;
+import br.com.instagramandroid.cursoandroid.instagram.fragments.HomeFragment;
 import br.com.instagramandroid.cursoandroid.instagram.util.Permissao;
 import br.com.instagramandroid.cursoandroid.instagram.util.SlidingTabLayout;
 
@@ -137,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
 
                         if (e==null){
                             Toast.makeText(MainActivity.this, "Sua imagem foi postada!", Toast.LENGTH_SHORT).show();
+
+                            // Atualizar a listagem de itens do Fragmento HomeFragment
+                            TabsAdapter adapterNovo = (TabsAdapter) viewPager.getAdapter();
+                            HomeFragment homeFragmentNovo = (HomeFragment) adapterNovo.getFragment(0);
+                            homeFragmentNovo.atualizaPostagens();
+
                         }else{
                             Toast.makeText(MainActivity.this, "Erro ao postar sua imagem!", Toast.LENGTH_SHORT).show();
                         }
