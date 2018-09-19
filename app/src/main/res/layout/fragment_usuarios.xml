@@ -9,7 +9,7 @@
         android:id="@+id/list_usuarios"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/cinzaEscuro"
+        android:divider="@color/cinza"
         android:dividerHeight="1dp"/>
 
 </FrameLayout>

@@ -8,4 +8,5 @@
     <string name="action_configuracoes">Configurações</string>
     <string name="action_sair">Sair</string>
     <string name="action_compartilhar">Compartilhar</string>
+    <string name="title_activity_feed_usuarios">FeedUsuariosActivity</string>
 </resources>
